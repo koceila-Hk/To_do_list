@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        /* Style pour le conteneur de la table */
+        .task-manager {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Style pour la table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Style pour les cellules de la table */
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        /* Style pour l'en-tête de la table */
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style pour le formulaire */
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="task-manager">
+        <h2>Task Manager</h2>
+        <!-- Formulaire pour ajouter une tâche -->
+        <form id="task-form">
+            <label for="task">Task:</label>
+            <input type="text" id="task" name="task">
+            <button type="submit">Add Task</button>
+        </form>
+        <form id="status-form">
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status">
+            <input type="hidden" id="username">
+            <button type="submit">Add Status</button>
+        </form>
+
+        <!-- Tableau pour afficher les tâches -->
+        <table id="task-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Les tâches seront ajoutées ici dynamiquement -->
+            </tbody>
+        </table>
+    </div>
+</body>
+    <script src="./assets/js/task.js" type="module"></script>
+</html>
