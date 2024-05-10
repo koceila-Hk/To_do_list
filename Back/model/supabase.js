@@ -37,33 +37,33 @@ async function addTask(userID,task) {
 }
 
 /////////////// Add status
-async function addStatus(task,status,name) {
-    try {
-        // let { data, error } = await supabase
-        // .from('todolist')
-        // .insert([
-        //     {id_user: userID,status: status}
-        // ])
-        let {data:name,error:errorName} = await supabase
-        .from('users')
-        .select('id')
-        .eq('username', name)
+// async function addStatus(task,status,name) {
+//     try {
+//         // let { data, error } = await supabase
+//         // .from('todolist')
+//         // .insert([
+//         //     {id_user: userID,status: status}
+//         // ])
+//         let {data:name,error:errorName} = await supabase
+//         .from('users')
+//         .select('id')
+//         .eq('username', name)
 
-        const id_user= name[0].id;
+//         const id_user= name[0].id;
 
-        const { data, error } = await supabase
-        .from('todolist')
-        .update({ status: status })
-        .eq('task', task)
-        .eq('id_user', id_user[0].id)
-        .select()
-        console.log(task);
+//         const { data, error } = await supabase
+//         .from('todolist')
+//         .update({ status: status })
+//         .eq('task', task)
+//         .eq('id_user', id_user[0].id)
+//         .select()
+//         console.log(task);
 
-        return { data, error };
-    } catch (error) {
-        return { error: error.message };
-    }
-}
+//         return { data, error };
+//     } catch (error) {
+//         return { error: error.message };
+//     }
+// }
 
 /////////////// GetName
 
@@ -82,12 +82,50 @@ async function getUsername(username) {
 }
 
 
-async function getUser(user){
-let { data: todolist, error } = await supabase
-.from('todolist')
-.select('*')
-.eq('id_user',user)
-return todolist;
+// async function getUser(user){
+// let { data: todolist, error } = await supabase
+// .from('todolist')
+// .select('*')
+// .eq('id_user',user)
+// return todolist;
+// }
+
+
+async function addStatus(taskStatus, name) {
+    try {
+        const { data: userData, error: nameError } = await supabase
+            .from('users')
+            .select('id')
+            .eq('username', name);
+
+        if (!userData || userData.length === 0) {
+            return { error: 'Utilisateur non trouvé.' };
+        }
+
+        const userId = userData[0].id;
+
+        ////////// Make sure the task exists before updating the status
+        const { data: taskData, error: taskError } = await supabase
+            .from('todolist')
+            .select('id')
+            .eq('id_user', userId);
+
+        if (!taskData || taskData.length === 0) {
+            return { error: 'Aucune tâche trouvée pour cet utilisateur.' };
+        }
+
+        ///////// Update status
+        const taskId = taskData[0].id;
+
+        const { data, error } = await supabase
+            .from('todolist')
+            .update({ status: taskStatus })
+            .eq('id', taskId);
+
+        return { data, error };
+    } catch (error) {
+        return { error: error.message };
+    }
 }
 
-export {add_user, addTask, addStatus, getUsername, getUser};
+export {add_user, addTask, addStatus, getUsername };
