@@ -36,7 +36,6 @@ async function addTask(userID,task) {
     }
 }
 
-/////////////// Add status
 // async function addStatus(task,status,name) {
 //     try {
 //         // let { data, error } = await supabase
@@ -65,7 +64,8 @@ async function addTask(userID,task) {
 //     }
 // }
 
-/////////////// GetName
+
+/////////////// Get username
 
 async function getUsername(username) {
     try {
@@ -74,23 +74,14 @@ async function getUsername(username) {
         .select('id')
         .eq('username', username)
 
-        // console.log('donnée: ', data);
-        return ({data,error});
+        return {data,error};
     } catch (error) {
         return { error: error.message};
     }
 }
 
 
-// async function getUser(user){
-// let { data: todolist, error } = await supabase
-// .from('todolist')
-// .select('*')
-// .eq('id_user',user)
-// return todolist;
-// }
-
-
+//////// Add status
 async function addStatus(taskStatus, name) {
     try {
         const { data: userData, error: nameError } = await supabase
@@ -128,4 +119,70 @@ async function addStatus(taskStatus, name) {
     }
 }
 
-export {add_user, addTask, addStatus, getUsername };
+
+async function loginUser(userData) {
+    try {
+        // Récupérer les informations des utilisateurs correspondant aux identifiants fournis
+        const { data: users, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('username', userData.username)
+            .eq('password', userData.password)
+            .single();
+
+            return {data, error};
+    } catch (error) {
+        return {error: error.message};
+    }
+}
+
+
+//////////// Get rows
+
+// async function getUserTask(username) {
+//     try {
+//         const { data: userData, error: userError } = await supabase
+//         .from('users')
+//         .select('id')
+//         .eq('username', username)
+
+//         if (!userData) {
+//             throw new Error('Utilisateur non trouvé');
+//         }
+
+//         const userId = userData.id;
+
+//         const { data: userTasks, error: taskError } = await supabase
+//             .from('todolist')
+//             .select('task, status')
+//             .eq('id_user', userId);
+
+//         return userTasks;
+//     } catch (error) {
+//         return {error: error.message}
+//     }
+// }
+
+
+async function getUserTask(username) {
+    try {
+        const { data: userData, error: userError } = await supabase
+            .from('users')
+            .select('id')
+            .eq('username', username)
+            .single();
+
+        const userId = userData.id;
+
+        const { data: userTasks, error: taskError } = await supabase
+            .from('todolist')
+            .select('task, status')
+            .eq('id_user', userId);
+
+        return userTasks;
+    } catch (error) {
+        return {error: error.message}
+    }
+}
+
+export {add_user, addTask, addStatus, getUsername, loginUser, getUserTask };

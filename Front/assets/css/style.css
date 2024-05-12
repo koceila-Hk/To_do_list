@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    list-style: none;
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(188, 185, 185);
+}
+
+nav {
+    background-color: black;
+    padding: 10px;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background-color: rgb(49, 62, 240);
+    color: white;
+    padding: 5px 10px;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+#register, #connection {
+    background-color: rgb(209, 202, 193);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+}
+
+input {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+label {
+    margin: 5px;
+}

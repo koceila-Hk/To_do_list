@@ -1,4 +1,6 @@
-import { register_user } from "./fetch.js";
+import { register_user} from "./fetch.js";
+
+///////// Post form register
 
 const form_register = document.getElementById('register');
 

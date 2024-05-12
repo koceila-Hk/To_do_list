@@ -1,6 +1,6 @@
 import express, { urlencoded } from 'express'
 import cors from 'cors'
-import { add_user, addTask, addStatus, getUsername} from './model/supabase.js'
+import { add_user, addTask, addStatus, getUsername, loginUser, getUserTask} from './model/supabase.js'
 
 const app = express()
 const port = 3000
@@ -9,9 +9,15 @@ app.use(express.json())
 app.use(cors())
 app.use(express.urlencoded({extended: true}));
 
+
 ////////// Post 
+
 app.post('/user', async (req, res) => {
     try {
+        // const existingUser = await getUsername(req.body.username);
+        // if (existingUser.data) {
+        //     res.status(400).json({error: `Utilisateur existe déjà`})
+        // }
         const { data, error } = await add_user(req.body);
         res.json(data)
     } catch (error) {
@@ -19,16 +25,27 @@ app.post('/user', async (req, res) => {
     }
 });
 
+
+//////////// Login
+
+app.post('/login', async (req, res) => {
+    try {
+        const { data, error } = await loginUser (req.body);
+        res.json(data)
+    } catch (error) {
+        res.status(500).json({error : `Erreur lors de la connexion`})
+    }
+});
+
 //////////// Post task
+
 app.post('/task', async (req, res) => {
     try {
         const username = req.body.name;
         const task = req.body.taskName;
-        let { data: users,error:errorName } = await getUsername(username);
+        const { data: users,error:errorName } = await getUsername(username);
         
-        console.log(users);
-        const id=users[0].id;
-
+        const id = users[0].id;
         const { data, error } = await addTask(id, task);
     
         res.status(200).json('ajout ok.');
@@ -65,3 +82,18 @@ app.post('/status', async (req, res) => {
 app.listen(port, () => {
     console.log(`Hello I'm here ${port}`);
 });
+
+
+
+app.get('/tasks/:username', async (req, res) => {
+    const username = req.params.username;
+    try {
+      const tasks = await getUserTask(username);
+      res.json(tasks);
+
+    } catch (error) {
+      console.error('Erreur lors de la récupération des tâches :', error);
+      res.status(500).json({ error: 'Erreur lors de la récupération des tâches' });
+    }
+  });
+  

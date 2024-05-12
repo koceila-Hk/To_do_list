@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <h1>Bienvenue</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><h1>To Do</h1></li>
+                <li><a href="./login.html"><button>log in</button></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Enterprise</h1>
     <form id="register">
         <label for="username">Username:</label>
-        <input type="text" id="username" name="username" />
-      </div>
-      
-      <div>
-        <label for="pass">Password</label>
+        <input type="text" id="username" name="username"/>
+        <label for="pass">Password:</label>
         <input type="password" id="pass" name="password" />
-      </div>
-      
-      <input type="submit" value="Sign in" />      
+        <input type="submit" value="sign in" style="margin-top: 5px; cursor: pointer;"/>      
     </form>
+    <div id="error-message" style="color: red; display: none;">Le nom d'utilisateur existe déjà.</div>
+
 </body>
 <script src="./assets/js/script.js" type="module"></script>
 </html>
