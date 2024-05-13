@@ -30,37 +30,46 @@
         form {
             margin-bottom: 20px;
         }
+        #modif{
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="task-manager">
+        <div id="modif">
+            <form action="">
+                <input id="newTask" type="text" placeholder="La tache">
+                <select name="" id="newStatus">
+                    <option value="en cours">en cours</option>
+                    <option value="fait">fait</option>
+                    <option value="plus tard">plus tard</option>
+                </select>
+                <button type="submit">Modifier</button>
+            </form>
+        </div>
         <h2>Task Manager</h2>
         <!-- Formulaire pour ajouter une tâche -->
         <form id="task-form">
             <label for="task">Task:</label>
             <input type="text" id="task" name="task">
+            
+            
+            <label for="status">Status:</label>
+            <select name="status" id="status" >
+                <option value="en cours">en cours</option>
+                <option value="fait">fait</option>
+                <option value="plus tard">plus tard</option>
+
+            </select>
             <button type="submit">Add Task</button>
         </form>
-        <form id="status-form">
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status">
-            <input type="hidden" id="username">
-            <button type="submit">Add Status</button>
-        </form>
 
-        <!-- Tableau pour afficher les tâches -->
-        <table id="task-table">
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
                 <!-- Les tâches seront ajoutées ici dynamiquement -->
             </tbody>
         </table>
     </div>
 </body>
+<script src="./assets/js/taches.js" type="module"></script>
     <script src="./assets/js/task.js" type="module"></script>
 </html>

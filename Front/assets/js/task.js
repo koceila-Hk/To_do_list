@@ -4,8 +4,6 @@ import { addTask, addStatus } from "./fetch.js";
 const url = new URLSearchParams(window.location.search);
 const username = url.get("username");
 
-///////// Username form
-let name = document.querySelector("#username").value
 
 ///////// Task-form
 const taskForm = document.getElementById('task-form');
@@ -14,26 +12,26 @@ taskForm.addEventListener('submit', async (e) => {
 
     // Récupérer les valeurs du formulaire
     var taskName = document.getElementById('task').value;
+    var status = document.querySelector("#status").value;
     const taskData = {
         taskName,
         name: username,
+        status: status,
     }
     console.log(taskData);
     const response = await addTask(taskData);
-    //Réinitialiser le formulaire
-    //document.getElementById('task-form').reset();
 });
 
-///////// Status-form
-const statusForm = document.getElementById('status-form');
+// ///////// Status-form
+// const statusForm = document.getElementById('status-form');
 
-statusForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const taskStatus = document.getElementById('status').value;
-    const statusData = {
-        taskStatus,
-        name: username,
-    }
-    console.log(statusData);
-    const response = await addStatus(statusData);
-});
+// statusForm.addEventListener('submit', async (e) => {
+//     e.preventDefault();
+//     const taskStatus = document.getElementById('status').value;
+//     const statusData = {
+//         taskStatus,
+//         name: username,
+//     }
+//     console.log(statusData);
+//     const response = await addStatus(statusData);
+// });

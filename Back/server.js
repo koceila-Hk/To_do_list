@@ -43,10 +43,12 @@ app.post('/task', async (req, res) => {
     try {
         const username = req.body.name;
         const task = req.body.taskName;
+        const status = req.body.status;
+
         const { data: users,error:errorName } = await getUsername(username);
         
         const id = users[0].id;
-        const { data, error } = await addTask(id, task);
+        const { data, error } = await addTask(id, task, status);
     
         res.status(200).json('ajout ok.');
     } catch (error) {
@@ -71,29 +73,25 @@ app.post('/status', async (req, res) => {
     }
 });
 
-// app.get('/collect', async function(req,res){
-//     const user=req.query.id
-//     const data = await getUser(user)
-    
-//     res.send(data)
-// })
 
-
-app.listen(port, () => {
-    console.log(`Hello I'm here ${port}`);
-});
-
-
+///////////// Get Tasks
 
 app.get('/tasks/:username', async (req, res) => {
     const username = req.params.username;
     try {
       const tasks = await getUserTask(username);
-      res.json(tasks);
+      res.send(tasks);
 
     } catch (error) {
       console.error('Erreur lors de la récupération des tâches :', error);
       res.status(500).json({ error: 'Erreur lors de la récupération des tâches' });
     }
   });
+
+
+
+app.listen(port, () => {
+    console.log(`Hello I'm here ${port}`);
+});
+
   

@@ -22,12 +22,12 @@ async function add_user(info) {
 }
 
 ///////////////  Add task
-async function addTask(userID,task) {
+async function addTask(userID,task,status) {
     try {
         let { data, error } = await supabase
         .from('todolist')
         .insert([
-            {id_user: userID,task:task}
+            {id_user: userID,task:task, status:status}
         ])
 
         return { data, error };
