@@ -1,9 +1,14 @@
-async function afficherFilms() {
+import {showTasks} from './fetch.js';
+
+const url = new URLSearchParams(window.location.search);
+const nom = url.get("username");
+
+async function allTasks() {
     const body = document.querySelector("body");
-    const reponse = await fetch("http://localhost:3000/tasks/hakim");
-    const films = await reponse.json();
-    console.log(films);
-    films.forEach(element => {
+    const reponse = await showTasks(nom);
+    
+    console.log(reponse);
+    reponse.forEach(element => {
         const h=document.createElement('h1');
         h.innerHTML = element.task;
         const p = document.createElement('p')
@@ -14,4 +19,4 @@ async function afficherFilms() {
     });
 }
 
-afficherFilms();
+allTasks();

@@ -76,8 +76,8 @@ app.post('/status', async (req, res) => {
 
 ///////////// Get Tasks
 
-app.get('/tasks/:username', async (req, res) => {
-    const username = req.params.username;
+app.get('/tasks', async (req, res) => {
+    const username = req.query.username;
     try {
       const tasks = await getUserTask(username);
       res.send(tasks);

@@ -72,5 +72,19 @@ async function addStatus(statusData) {
     }
 }
 
-export { register_user, addTask, addStatus, connectUser }
+
+////////// Show tasks
+
+async function showTasks(nom) {
+    try {
+        const response = await fetch("http://localhost:3000/tasks?username=" + encodeURIComponent(nom));
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error('Erreur lors de la requête GET :', error);
+    }
+}
+
+
+export { register_user, addTask, addStatus, connectUser, showTasks }
 
