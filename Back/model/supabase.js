@@ -176,7 +176,7 @@ async function getUserTask(username) {
 
         const { data: userTasks, error: taskError } = await supabase
             .from('todolist')
-            .select('task, status')
+            .select('*')
             .eq('id_user', userId);
 
         return userTasks;
@@ -185,4 +185,26 @@ async function getUserTask(username) {
     }
 }
 
-export {add_user, addTask, addStatus, getUsername, loginUser, getUserTask };
+async function updateTask(a,b,c){
+    
+    const { data, error } = await supabase
+    .from('todolist')
+    .update({ task: a, status:b  })
+    .eq('id', c)
+    .select()
+    return data;
+
+}
+
+async function deleteT(a){
+    const { error } = await supabase
+    .from('todolist')
+    .delete()
+    .eq('id', a)
+    return {error};
+
+
+}
+
+
+export {add_user, addTask, addStatus, getUsername, loginUser, getUserTask , updateTask,deleteT};

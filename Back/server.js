@@ -1,6 +1,6 @@
 import express, { urlencoded } from 'express'
 import cors from 'cors'
-import { add_user, addTask, addStatus, getUsername, loginUser, getUserTask} from './model/supabase.js'
+import { add_user, addTask, addStatus, getUsername, loginUser, getUserTask, updateTask,deleteT} from './model/supabase.js'
 
 const app = express()
 const port = 3000
@@ -89,6 +89,34 @@ app.get('/tasks', async (req, res) => {
   });
 
 
+/////////// Update task
+
+app.post('/set', async function(req,res){
+    const id     = req.body.id;
+    const task   = req.body.task;
+    const status = req.body.status;
+    try {
+        const tasks = await updateTask(task,status,id);
+  
+      } catch (error) {
+        console.error('Erreur lors de la mise à jour des tâches :', error);
+        res.status(500).json({ error: 'Erreur lors de la mise à jour des tâches' });
+      }
+})
+
+//////////// Delete task
+
+app.post('/delete', async function(req,res){
+    const id = req.body.id;
+   
+    try {
+        const tasks = await deleteT(id);
+  
+      } catch (error) {
+        console.error('Erreur lors de la supprision des tâches :', error);
+        res.status(500).json({ error: 'Erreur lors de la supprision des tâches' });
+      }
+})
 
 app.listen(port, () => {
     console.log(`Hello I'm here ${port}`);
